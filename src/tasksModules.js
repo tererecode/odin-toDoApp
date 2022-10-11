@@ -1,6 +1,4 @@
-let defaultToDo = [];
-
-function ToDo(title, description, dueDate, priority, project, uid) {
+function ToDoFactory(title, description, dueDate, priority, project, uid) {
     let toDo = {
         title,
         description,
@@ -9,23 +7,33 @@ function ToDo(title, description, dueDate, priority, project, uid) {
         project,
         uid,
     }
-    return Object.assign(
-        toDo,
-        remover(toDo),
-        handleEdit(toDo),
-    )
+    return Object.assign(toDo)
 }
 
-const remover = (state) => ({
-    remove(index) {
-        defaultToDo.splice(index, 1)
-    }
-})
+function ArrayFactory() {
+    const taskArray = { tasks: [] }
 
-const handleEdit = (state) => ({
-    edit(index, newtitle) {
-        defaultToDo[index].title = newtitle
-    }
-})
+    return { ...taskArray, ...adder(taskArray), ...deleter(taskArray), ...editor(taskArray) }
+};
 
-export { defaultToDo, ToDo }
+function adder({ tasks }) {
+    return {
+        add: (obj) => tasks.push(obj)
+    }
+};
+
+function deleter({ tasks }) {
+    return {
+        delete: (index) => tasks.splice(index, 1)
+    }
+};
+
+function editor({ tasks }) {
+    return {
+        edit: (index, newtitle) => tasks[index].title = newtitle
+    }
+};
+
+const defaultToDo = ArrayFactory()
+
+export { defaultToDo, ToDoFactory }
