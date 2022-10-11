@@ -28,7 +28,7 @@ function setBindings(dataId) {
 
 function indexFinder(event) {
     let targetUID = event.target.closest('.card').dataset.id;
-    let TargetObjIndex = task.defaultToDo.findIndex(obj => obj.uid == targetUID)
+    let TargetObjIndex = task.defaultToDo.tasks.findIndex(obj => obj.uid == targetUID)
     return TargetObjIndex;
 }
 
@@ -36,24 +36,24 @@ function taskUpdate(event) {
     let index = indexFinder(event);
     const card = event.target.parentNode
     const titlePara = card.querySelector('.card__todo-title').textContent
-    task.defaultToDo[index].edit(index, titlePara)
-    render(task.defaultToDo)
-    console.log(task.defaultToDo)
+    task.defaultToDo.edit(index, titlePara)
+    render(task.defaultToDo.tasks)
+    console.log(task.defaultToDo.tasks)
 
 }
 
 function taskDelete(event) {
     let index = indexFinder(event)
-    task.defaultToDo[index].remove(index)
-    render(task.defaultToDo)
+    task.defaultToDo.delete(index)
+    render(task.defaultToDo.tasks)
 }
 
 function createCard() {
-    let newTaskObject = task.ToDo('', '', '', '', '', uuidv4())
+    let newTaskObject = task.ToDoFactory('', '', '', '', '', uuidv4())
     console.log(newTaskObject)
-    task.defaultToDo.push(newTaskObject)
-    console.log(task.defaultToDo)
-    render(task.defaultToDo)
+    task.defaultToDo.add(newTaskObject)
+    console.log(task.defaultToDo.tasks)
+    render(task.defaultToDo.tasks)
 }
 
 export { createCard }
