@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { adder, deleter, editor } from './taskMethods'
 
 function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Normal', project = 'Default') {
     let toDo = {
@@ -14,25 +15,11 @@ function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Nor
 
 function ArrayFactory() {
     const taskArray = { tasks: [] }
-
-    return { ...taskArray, ...adder(taskArray), ...deleter(taskArray), ...editor(taskArray) }
-};
-
-function adder({ tasks }) {
     return {
-        add: (obj) => tasks.push(obj)
-    }
-};
-
-function deleter({ tasks }) {
-    return {
-        delete: (index) => tasks.splice(index, 1)
-    }
-};
-
-function editor({ tasks }) {
-    return {
-        edit: (index, newtitle) => tasks[index].title = newtitle
+        ...taskArray,
+        ...adder(taskArray),
+        ...deleter(taskArray),
+        ...editor(taskArray)
     }
 };
 
