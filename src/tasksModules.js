@@ -1,11 +1,13 @@
-function ToDoFactory(title, description, dueDate, priority, project, uid) {
+import { v4 as uuidv4 } from 'uuid';
+
+function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Normal', project = 'Default') {
     let toDo = {
         title,
         description,
         dueDate,
         priority,
         project,
-        uid,
+        uid: uuidv4(),
     }
     return Object.assign(toDo)
 }

@@ -1,5 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
-// imports  {defaultToDo, ToDo} from taskModules
+// imports  {defaultToDo, ToDoFactory} from taskModules
 import * as task from './tasksModules.js';
 
 const toDolist = document.querySelector('.list__container')
@@ -49,7 +48,7 @@ function taskDelete(event) {
 }
 
 function createCard() {
-    let newTaskObject = task.ToDoFactory('', '', '', '', '', uuidv4())
+    let newTaskObject = task.ToDoFactory()
     console.log(newTaskObject)
     task.defaultToDo.add(newTaskObject)
     console.log(task.defaultToDo.tasks)
