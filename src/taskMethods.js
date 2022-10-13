@@ -12,7 +12,14 @@ function deleter({ tasks }) {
 
 function editor({ tasks }) {
     return {
-        edit: (index, newtitle) => tasks[index].title = newtitle
+        edit: (index, newtitle, newDesc, newDue, newPriority, newProject) => {
+            tasks[index].title = newtitle;
+            tasks[index].description = newDesc;
+            tasks[index].dueDate = newDue;
+            tasks[index].priority = newPriority;
+            tasks[index].project = newProject;
+        }
+
     }
 };
 
