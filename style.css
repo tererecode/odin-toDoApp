@@ -1,3 +1,8 @@
 .card {
     border: 1px solid black;
 }
+
+input,
+textarea {
+    display: block;
+}
