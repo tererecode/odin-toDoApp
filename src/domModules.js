@@ -82,12 +82,12 @@ function createCard() {
 
 function loadDatalist(datalist = projectListEl) {
     datalist.innerHTML = "";
-    task.generateDatalist().forEach((element) => {
+    task.defaultToDo.projectList().forEach((element) => {
         datalist.appendChild(new Option(element, element,));
     });
-    console.log(task.generateDatalist)
-    console.log(task.generateDatalist())
+    console.log(task.defaultToDo.projectList())
 
 }
+
 
 export { createCard }

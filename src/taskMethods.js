@@ -23,4 +23,9 @@ function editor({ tasks }) {
     }
 };
 
-export { adder, deleter, editor }
+function projectListGenerator({ tasks }) {
+    return {
+        projectList: () => [...new Set(tasks.map((obj) => obj.project))]
+    }
+};
+export { adder, deleter, editor, projectListGenerator }

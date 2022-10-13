@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { adder, deleter, editor } from './taskMethods'
+import { adder, deleter, editor, projectListGenerator } from './taskMethods'
 
 function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Normal', project = 'Default') {
     let toDo = {
@@ -19,12 +19,11 @@ function ArrayFactory() {
         ...taskArray,
         ...adder(taskArray),
         ...deleter(taskArray),
-        ...editor(taskArray)
+        ...editor(taskArray),
+        ...projectListGenerator(taskArray)
     }
 };
 
-const generateDatalist = (arr = defaultToDo.tasks) => [...new Set(arr.map((obj) => obj.project))]
-
 const defaultToDo = ArrayFactory()
 
-export { defaultToDo, ToDoFactory, generateDatalist }
+export { defaultToDo, ToDoFactory }
