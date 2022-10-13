@@ -1,6 +1,7 @@
 // imports  {defaultToDo, ToDoFactory} from taskModules
 import * as task from './tasksModules.js';
 
+const projectListEl = document.getElementById('projects-list');
 const toDolist = document.querySelector('.list__container')
 
 
@@ -34,7 +35,7 @@ function render(projectArray) {
         setBindings(taskObj.uid)
 
     })
-    task.loadDatalist()
+    loadDatalist()
 }
 
 function setBindings(dataId) {
@@ -77,6 +78,16 @@ function createCard() {
     task.defaultToDo.add(newTaskObject)
     console.log(task.defaultToDo.tasks)
     render(task.defaultToDo.tasks)
+}
+
+function loadDatalist(datalist = projectListEl) {
+    datalist.innerHTML = "";
+    task.generateDatalist().forEach((element) => {
+        datalist.appendChild(new Option(element, element,));
+    });
+    console.log(task.generateDatalist)
+    console.log(task.generateDatalist())
+
 }
 
 export { createCard }

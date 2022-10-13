@@ -23,17 +23,8 @@ function ArrayFactory() {
     }
 };
 
-const projectListDataList = document.getElementById('projects-list');
-
-function loadDatalist(arr = defaultToDo.tasks, datalist = projectListDataList) {
-    datalist.innerHTML = "";
-    const projectsList = [...new Set(arr.map((obj) => obj.project))]
-    console.log(projectsList)
-    projectsList.forEach((element) => {
-        datalist.appendChild(new Option(element, element,));
-    });
-}
+const generateDatalist = (arr = defaultToDo.tasks) => [...new Set(arr.map((obj) => obj.project))]
 
 const defaultToDo = ArrayFactory()
 
-export { defaultToDo, ToDoFactory, loadDatalist }
+export { defaultToDo, ToDoFactory, generateDatalist }
