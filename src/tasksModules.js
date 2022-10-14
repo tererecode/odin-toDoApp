@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { adder, deleter, editor, projectListGenerator } from './taskMethods'
+import { adder, deleter, editor, projectListGenerator, filteredListGenerator } from './taskMethods'
 
-function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Normal', project = 'Default') {
+function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Normal', project = 'Unassigned') {
     let toDo = {
         title,
         description,
@@ -20,10 +20,12 @@ function ArrayFactory() {
         ...adder(taskArray),
         ...deleter(taskArray),
         ...editor(taskArray),
-        ...projectListGenerator(taskArray)
+        ...projectListGenerator(taskArray),
+        ...filteredListGenerator(taskArray)
     }
 };
-
+// Saves all Task Objects
 const defaultToDo = ArrayFactory()
+
 
 export { defaultToDo, ToDoFactory }

@@ -28,4 +28,11 @@ function projectListGenerator({ tasks }) {
         projectList: () => [...new Set(tasks.map((obj) => obj.project))]
     }
 };
-export { adder, deleter, editor, projectListGenerator }
+
+function filteredListGenerator({ tasks }) {
+    return {
+        filterList: (projectName) => tasks.filter((obj) => obj.project == projectName)
+    }
+}
+
+export { adder, deleter, editor, projectListGenerator, filteredListGenerator }
