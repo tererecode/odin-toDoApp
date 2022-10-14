@@ -1,9 +1,24 @@
 // imports  {defaultToDo, ToDoFactory} from taskModules
 import * as task from './tasksModules.js';
 
+const projectSelectEl = document.querySelector('.content__header-select');
+projectSelectEl.addEventListener('change', resolveArrayToRender)
 const projectListEl = document.getElementById('projects-list');
 const toDolist = document.querySelector('.list__container')
 
+let ArrayToRender = task.defaultToDo.tasks;
+
+function resolveArrayToRender() {
+    const project = projectSelectEl.value;
+    if (project == "All") {
+        console.log('yep')
+        ArrayToRender = task.defaultToDo.tasks;
+        render(ArrayToRender)
+    } else {
+        ArrayToRender = task.defaultToDo.filterList(project);
+        render(ArrayToRender)
+    }
+}
 
 function render(projectArray) {
     toDolist.innerHTML = '';
@@ -61,15 +76,15 @@ function taskUpdate(event) {
     const prioritySel = card.querySelector('.card__todo-priority').value
     const projectInput = card.querySelector('.card__todo-project').value
     task.defaultToDo.edit(index, titleInput, descInput, dueDateSel, prioritySel, projectInput)
-    render(task.defaultToDo.tasks)
-    console.log(task.defaultToDo.tasks)
+    render(ArrayToRender)
+    console.log(ArrayToRender)
 
 }
 
 function taskDelete(event) {
     let index = indexFinder(event)
     task.defaultToDo.delete(index)
-    render(task.defaultToDo.tasks)
+    render(ArrayToRender)
 }
 
 function createCard() {
@@ -77,14 +92,18 @@ function createCard() {
     console.log(newTaskObject)
     task.defaultToDo.add(newTaskObject)
     console.log(task.defaultToDo.tasks)
-    render(task.defaultToDo.tasks)
+    render(ArrayToRender)
 }
 
 function loadDatalist(datalist = projectListEl) {
+    const CurrentListDisplay = projectSelectEl.value;
     datalist.innerHTML = "";
+    datalist.appendChild(new Option('All', 'All'));
     task.defaultToDo.projectList().forEach((element) => {
         datalist.appendChild(new Option(element, element,));
     });
+    projectSelectEl.innerHTML = datalist.innerHTML
+    projectSelectEl.value = CurrentListDisplay;
     console.log(task.defaultToDo.projectList())
 
 }
