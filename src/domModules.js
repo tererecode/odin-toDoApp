@@ -1,6 +1,17 @@
 // imports  {defaultToDo, ToDoFactory} from taskModules
 import * as task from './tasksModules.js';
 
+function loadLocalStorage() {
+    if (localStorage.length > 0) {
+        for (let i = 0; i < localStorage.length; i++) {
+            task.defaultToDo.tasks.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
+            render(task.defaultToDo.tasks)
+        }
+    } else {
+        console.log('localStorage empty')
+    }
+}
+
 const projectSelectEl = document.querySelector('.content__header-select');
 projectSelectEl.addEventListener('change', resolveArrayToRender)
 const projectListEl = document.getElementById('projects-list');
@@ -89,11 +100,12 @@ function taskDelete(event) {
 
 function createCard() {
     let newTaskObject = task.ToDoFactory()
-    console.log(newTaskObject)
+    console.log(newTaskObject.uid)
     task.defaultToDo.add(newTaskObject)
     console.log(task.defaultToDo.tasks)
     render(ArrayToRender)
 }
+
 
 function loadDatalist(datalist = projectListEl) {
     const CurrentListDisplay = projectSelectEl.value;
@@ -109,4 +121,4 @@ function loadDatalist(datalist = projectListEl) {
 }
 
 
-export { createCard }
+export { createCard, loadLocalStorage }
