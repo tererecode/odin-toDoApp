@@ -1,12 +1,18 @@
 function adder({ tasks }) {
     return {
-        add: (obj) => tasks.push(obj)
+        add: (obj) => {
+            tasks.push(obj);
+            storageHandler('add', tasks, tasks.indexOf(obj))
+        }
     }
 };
 
 function deleter({ tasks }) {
     return {
-        delete: (index) => tasks.splice(index, 1)
+        delete: (index) => {
+            storageHandler('delete', tasks, index)
+            tasks.splice(index, 1);
+        }
     }
 };
 
@@ -18,8 +24,8 @@ function editor({ tasks }) {
             tasks[index].dueDate = newDue;
             tasks[index].priority = newPriority;
             tasks[index].project = newProject;
+            storageHandler('edit', tasks, index)
         }
-
     }
 };
 
@@ -32,6 +38,19 @@ function projectListGenerator({ tasks }) {
 function filteredListGenerator({ tasks }) {
     return {
         filterList: (projectName) => tasks.filter((obj) => obj.project == projectName)
+    }
+}
+
+function storageHandler(action, arr, index) {
+    switch (action) {
+        case "add":
+        case "edit":
+            let makeStr = JSON.stringify(arr[index]);
+            localStorage.setItem(arr[index].uid, makeStr);
+            break;
+        case "delete":
+            localStorage.removeItem(arr[index].uid);
+            break;
     }
 }
 
