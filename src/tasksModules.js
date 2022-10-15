@@ -14,7 +14,9 @@ function ToDoFactory(title = '', description = '', dueDate = '', priority = 'Nor
 }
 
 function ArrayFactory() {
-    const taskArray = { tasks: [] }
+    const taskArray = {
+        tasks: []
+    }
     return {
         ...taskArray,
         ...adder(taskArray),
