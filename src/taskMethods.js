@@ -16,14 +16,26 @@ function deleter({ tasks }) {
     }
 };
 
+// function editor({ tasks }) {
+//     return {
+//         edit: (index, newtitle, newDesc, newDue, newPriority, newProject) => {
+//             tasks[index].title = newtitle;
+//             tasks[index].description = newDesc;
+//             tasks[index].dueDate = newDue;
+//             tasks[index].priority = newPriority;
+//             tasks[index].project = newProject;
+//             storageHandler('edit', tasks, index)
+//         }
+//     }
+// };
 function editor({ tasks }) {
     return {
-        edit: (index, newtitle, newDesc, newDue, newPriority, newProject) => {
-            tasks[index].title = newtitle;
-            tasks[index].description = newDesc;
-            tasks[index].dueDate = newDue;
-            tasks[index].priority = newPriority;
-            tasks[index].project = newProject;
+        edit: (index, newValues) => {
+            tasks[index].title = newValues.title;
+            tasks[index].description = newValues.Descrip;
+            tasks[index].dueDate = newValues.Due;
+            tasks[index].priority = newValues.Priority;
+            tasks[index].project = newValues.Project;
             storageHandler('edit', tasks, index)
         }
     }

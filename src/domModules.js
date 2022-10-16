@@ -118,12 +118,14 @@ function indexFinder(event) {
 function taskUpdate(event) {
     let index = indexFinder(event);
     const card = event.target.parentNode;
-    const titleInput = card.querySelector('.card__todo-title').value;
-    const descInput = card.querySelector('.card__todo-description').value;
-    const dueDateSel = card.querySelector('.card__todo-dueDate').value;
-    const prioritySel = card.querySelector('.card__todo-priority').value
-    const projectInput = card.querySelector('.card__todo-project').value
-    task.defaultToDo.edit(index, titleInput, descInput, dueDateSel, prioritySel, projectInput)
+    const newValues = {
+        title: card.querySelector('.card__todo-title').value,
+        Descrip: card.querySelector('.card__todo-description').value,
+        Due: card.querySelector('.card__todo-dueDate').value,
+        Priority: card.querySelector('.card__todo-priority').value,
+        Project: card.querySelector('.card__todo-project').value,
+    }
+    task.defaultToDo.edit(index, newValues)
     render(ArrayToRender)
     console.log(ArrayToRender)
 
