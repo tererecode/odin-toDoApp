@@ -32,7 +32,7 @@ function resolveArrayToRender() {
 }
 
 function render(projectArray) {
-    toDolist.innerHTML = '';
+    toDolist.textContent = '';
     projectArray.forEach(taskObj => {
         let cardHtml = `
         <div class="card" data-id="${taskObj.uid}">
@@ -63,13 +63,50 @@ function render(projectArray) {
     })
     loadDatalist()
 }
+// this implementation only load  once after the loop, but requires a re write on the set bindings fn
+// function render(projectArray) {
+//     toDolist.textContent = '';
+//     let html = '';
+//     projectArray.forEach(taskObj => {
+//         html = `
+//         <div class="card" data-id="${taskObj.uid}">
+//             <input class="card__todo-title" type="text" placeholder="Title..." value="${taskObj.title}">
+//             <textarea class="card__todo-description" cols="30" rows="5" placeholder="Write a description...">${taskObj.description}</textarea>
+//             <select name="due-date" class="card__todo-dueDate">
+//                 <option style="display: none" value="${taskObj.dueDate}">${taskObj.dueDate}</option>
+//                 <option value="Now">Now</option>
+//                 <option value="Today">Today</option>
+//                 <option value="Tomorrow">Tomorrow</option>
+//                 <option value="Sometime">Sometime</option>
+//             </select>
+//             <select name="priority" class="card__todo-priority">
+//                 <option style="display: none" value="${taskObj.priority}">${taskObj.priority}</option>
+//                 <option value="Low">Low</option>
+//                 <option value="Normal">Normal</option>
+//                 <option value="High">High</option>
+//                 <option value="Urgent">Urgent</option>
+//             </select>
+//             <input class="card__todo-project" type="text" list="projects-list" value="${taskObj.project}">
+//             <p class="card__todo-id">${taskObj.uid}</p>
+//             <button class="card__add-btn">Save</button>
+//             <button class="card__del-btn">Delete</button>
+//         </div> ${html}`;
+//         // toDolist.insertAdjacentHTML("afterbegin", cardHtml.trim());
+//         // setBindings(taskObj.uid)
+
+//     })
+//     toDolist.innerHTML = html;
+//     // loadDatalist()
+// }
 
 function setBindings(dataId) {
     const cardElement = toDolist.querySelector(`.card[data-id="${dataId}"]`);
+    const projectInputElement = cardElement.querySelector('.card__todo-project')
+    projectInputElement.addEventListener('click', clearInput)
     const deleteBtn = cardElement.querySelector('.card__del-btn');
     deleteBtn.addEventListener('click', event => taskDelete(event));
     const saveBtn = cardElement.querySelector('.card__add-btn');
-    saveBtn.addEventListener('click', event => taskUpdate(event))
+    saveBtn.addEventListener('click', event => taskUpdate(event));
 }
 
 function indexFinder(event) {
@@ -90,6 +127,17 @@ function taskUpdate(event) {
     render(ArrayToRender)
     console.log(ArrayToRender)
 
+}
+
+function clearInput(event) {
+    let previousValue = event.target.value;
+    event.target.value = ''
+    event.target.addEventListener('blur', cancelInput)
+    function cancelInput(e) {
+        if (e.target.value == '') {
+            e.target.value = previousValue
+        }
+    }
 }
 
 function taskDelete(event) {
